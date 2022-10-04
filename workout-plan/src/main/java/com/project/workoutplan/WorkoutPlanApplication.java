@@ -8,6 +8,8 @@ public class WorkoutPlanApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkoutPlanApplication.class, args);
+
+		System.out.println("Hello");
 	}
 
 }
