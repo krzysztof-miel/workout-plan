@@ -1,17 +1,23 @@
 package com.project.workoutplan.data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "exercises")
 public class Exercise {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Exercise's name cannot be null or whitespace")
     private String name;
     private int reps;
     private boolean done;
+    @ManyToOne
+    @JoinColumn(name = "workout_id")
+    private Workout workout;
+
+
 
     public Exercise() {
     }
@@ -23,11 +29,24 @@ public class Exercise {
         this.done = done;
     }
 
+    public Exercise(String name, int reps, Workout workout) {
+        this.name = name;
+        this.reps = reps;
+        if (workout != null) {
+            this.workout = workout;
+        }
+    }
+    public Exercise(String name, int reps) {
+        this.name = name;
+        this.reps = reps;
+        this.workout = null;
+    }
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
@@ -54,4 +73,15 @@ public class Exercise {
     public void setDone(boolean done) {
         this.done = done;
     }
+    Workout getWorkout() {return workout;}
+
+    void setWorkout(Workout workout) {this.workout = workout;}
+
+    public void setExerciseToUndone() {
+        if (isDone()){
+            setDone(false);
+        }
+    }
+
+
 }

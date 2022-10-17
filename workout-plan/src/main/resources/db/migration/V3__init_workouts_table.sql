@@ -1,0 +1,7 @@
+CREATE TABLE workouts (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(255) NOT NULL,
+   done BOOLEAN NOT NULL
+);
+ALTER TABLE exercises ADD COLUMN workout_id INT NULL;
+ALTER TABLE exercises ADD FOREIGN KEY (workout_id) REFERENCES workouts (id);

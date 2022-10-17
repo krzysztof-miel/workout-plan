@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="057bea75-ea66-426d-be5c-e52d0a6b1f5a" name="workout-plan" url="jdbc:h2:file:~/h2/workout-plan" driverClass="org.h2.Driver" />
+    </data-sources>
     <data-source-infos>
       <data-source-info id="" persistence-unit-name="Default" />
     </data-source-infos>
