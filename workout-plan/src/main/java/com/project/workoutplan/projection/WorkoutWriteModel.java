@@ -2,14 +2,22 @@ package com.project.workoutplan.projection;
 
 import com.project.workoutplan.data.Workout;
 
-import java.util.Set;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class WorkoutWriteModel {
     private Integer id;
+    @NotBlank(message = "Workout's name must not be empty")
     private String name;
-    private Set<ExerciseWriteModel> exercises;
+    @Valid
+    private List<ExerciseWriteModel> exercises = new ArrayList<>();
 
+    public WorkoutWriteModel() {
+        exercises.add(new ExerciseWriteModel());
+    }
 
     public String getName() {
         return name;
@@ -19,11 +27,11 @@ public class WorkoutWriteModel {
         this.name = name;
     }
 
-    public Set<ExerciseWriteModel> getExercises() {
+    public List<ExerciseWriteModel> getExercises() {
         return exercises;
     }
 
-    public void setExercises(Set<ExerciseWriteModel> exercises) {
+    public void setExercises(List<ExerciseWriteModel> exercises) {
         this.exercises = exercises;
     }
 

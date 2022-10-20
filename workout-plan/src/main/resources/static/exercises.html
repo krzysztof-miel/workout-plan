@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout planner application</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+</main>
+<script>
+    (async function() {
+        const main = document.querySelector('main');
+        const params = new URLSearchParams(location.search);
+        const response = params.has('workout') ? await fetch(`/workouts/${params.get('workout')}`) : await fetch('/exercises');
+        if (response.ok) {
+            const exercises = await response.json();
+            const list = document.createElement('ul');
+            exercises.forEach(exercise => list.appendChild(saveExercise(exercise)));
+            main.prepend(list);
+        }
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const resp = await fetch('/exercises', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: form.elements.name.value,
+                    reps: form.elements.reps.value
+                })
+            });
+            if (resp.ok) {
+                const exerciseFromServer = await resp.json();
+                document.querySelector('ul').appendChild(saveExercise(exerciseFromServer));
+                form.reset();
+            }
+        });
+
+        function saveExercise({ id, name, reps, done }) {
+            const result = document.createElement('li');
+            result.innerHTML = `
+                <label>
+                    <input type="checkbox" ${done ? ' checked' : ''}/>
+                    ${name}
+                    ${reps}
+                </label>
+            `;
+            result.querySelector('input').addEventListener('click', async (e) => {
+                const response = await fetch(`/exercises/${id}`, { method: 'PATCH' });
+                if (!response.ok) {
+                    e.target.checked = !e.target.checked;
+                }
+            });
+            return result;
+        }
+    })();
+</script>
+</body>
+</html>
