@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+    <h1 th:if="${message != null}" th:text="${message}"></h1>
+    <dl th:each="workout : ${workouts}">
+        <dt th:text="${workout.name}">
+            <label>
+                <input type="checkbox"/>
+                <span th:text="${workout.name}"></span>
+                <small th:text="|(${exercise.done})|"></small>
+            </label>
+        </dt>
+        <dd>
+            <a th:href="@{/exercises.html(workout=${workout.id})}">
+                <ul>
+                    <li th:each="exercise : ${workout.exercises}">
+                        <span th:unless="${exercise.done}" th:text="${exercise.name}" th:number="${exercise.reps}"></span>
+                        <del th:if="${exercise.done}" th:text="${exercise.name}" th:number="${exercise.reps}"></del>
+                    </li>
+                </ul>
+            </a>
+        </dd>
+    </dl>
+
+    <fieldset>
+        <legend>Nowy trening</legend>
+        <form action="#" method="post" th:action="@{/workouts}" th:object="${workout}">
+            <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+            <label>Nazwa
+                <input type="text" th:field="*{name}"/>
+            </label>
+            <fieldset th:each="exercise,exerciseStat: *{exercises}">
+                <legend th:text="|Ćwiczenie ${exerciseStat.index + 1}|"></legend>
+                <label>Nazwa ćwiczenia
+                    <input type="text" th:field="*{exercises[__${exerciseStat.index}__].name}"/>
+                </label>
+                <label>Ilość powtórzeń
+                    <input type="number" th:field="*{exercises[__${exerciseStat.index}__].reps}"/>
+                </label>
+            </fieldset>
+            <div>
+                <button type="submit" name="addExercise">Dodaj kolejne ćwiczenia</button>
+            </div>
+
+            <p>
+                <button type="submit">Dodaj trening</button>
+                <button type="reset">Wyczyść</button>
+            </p>
+        </form>
+
+    </fieldset>
+
+
+</main>
+</body>
+</html>

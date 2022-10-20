@@ -10,7 +10,7 @@ public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Exercise's name cannot be null or whitespace")
+    @NotBlank(message = "Workouts name cannot be null or whitespace")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")
     private Set<Exercise> exercises;
