@@ -14,7 +14,6 @@ public class WorkoutPlanApplication implements RepositoryRestConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(WorkoutPlanApplication.class, args);
 
-		System.out.println("Hello Workout Planner Application");
 	}
 
 	@Bean
