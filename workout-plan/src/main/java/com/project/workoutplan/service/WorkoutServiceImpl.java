@@ -38,16 +38,6 @@ public class WorkoutServiceImpl implements WorkoutService{
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public void toggleWorkout(int workoutId) throws WorkoutNotFoundException {
-//        if (exerciseRepository.existsByDoneIsFalseAndWorkout_Id(workoutId)) {
-//            throw new IllegalStateException("Workout had undone exercises!");
-//        }
-//        Workout result = workoutRepository.findById(workoutId)
-//                .orElseThrow(() -> new WorkoutNotFoundException("Workout with given Id not found"));
-//        result.setDone(!result.isDone());
-//    }
-
     @Override
     public List<Exercise> findAllExercisesByWorkout_Id(int id) throws WorkoutNotFoundException {
         getWorkoutById(id);

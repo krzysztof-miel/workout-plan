@@ -49,12 +49,10 @@ public class ExerciseServiceImpl implements ExerciseService{
         return exercise;
     }
 
-    /////////////////////////////////////////////////////////////
     @Override
     public boolean existsByDoneIsFalseAndWorkout_Id(Integer workoutId) {
         return exerciseRepository.existsByDoneIsFalseAndWorkout_Id(workoutId);
     }
-    /////////////////////////////////////////////////////////////
 
     @Override
     public boolean existsById(int id) {

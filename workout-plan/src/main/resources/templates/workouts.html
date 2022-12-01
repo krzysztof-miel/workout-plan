@@ -31,28 +31,28 @@
     </dl>
 
     <fieldset>
-        <legend>Nowy trening</legend>
+        <legend>New workout</legend>
         <form action="#" method="post" th:action="@{/workouts}" th:object="${workout}">
             <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
-            <label>Nazwa
+            <label>Name
                 <input type="text" th:field="*{name}"/>
             </label>
             <fieldset th:each="exercise,exerciseStat: *{exercises}">
-                <legend th:text="|Ćwiczenie ${exerciseStat.index + 1}|"></legend>
-                <label>Nazwa ćwiczenia
+                <legend th:text="|Exercise ${exerciseStat.index + 1}|"></legend>
+                <label>Exercise name
                     <input type="text" th:field="*{exercises[__${exerciseStat.index}__].name}"/>
                 </label>
-                <label>Ilość powtórzeń
+                <label>Amount
                     <input type="number" th:field="*{exercises[__${exerciseStat.index}__].reps}"/>
                 </label>
             </fieldset>
             <div>
-                <button type="submit" name="addExercise">Dodaj kolejne ćwiczenia</button>
+                <button type="submit" name="addExercise">Add next exercise</button>
             </div>
 
             <p>
-                <button type="submit">Dodaj trening</button>
-                <button type="reset">Wyczyść</button>
+                <button type="submit">Add workout</button>
+                <button type="reset">Reset</button>
             </p>
         </form>
 

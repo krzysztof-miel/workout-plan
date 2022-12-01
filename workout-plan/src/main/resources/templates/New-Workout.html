@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+    <form action="#" method="post" th:action="@{/workouts}" th:object="${workout}">
+        <fieldset>
+            <legend>New workout</legend>
+            <label>Name
+                <input type="text" th:field="*{name}"/>
+            </label>
+            <fieldset th:each="exercise,exerciseStat : *{exercises}">
+                <legend th:text="|Ćwiczenie ${exerciseStat.index + 1}|"></legend>
+                <label>Exercise name
+                    <input type="text" th:field="*{exercises[__${exerciseStat.index}__].name}"/>
+                </label>
+                <label>Amount
+                    <input type="number" th:field="*{exercises[__${exerciseStat.index}__].reps}"/>
+                </label>
+            </fieldset>
+            <div>
+                <button type="submit" name="addExercise">Add next exercise</button>
+            </div>
+        </fieldset>
+        <p>
+            <button type="submit">Add workout</button>
+            <button type="reset">Reset</button>
+        </p>
+    </form>
+</main>
+</body>
+</html>
