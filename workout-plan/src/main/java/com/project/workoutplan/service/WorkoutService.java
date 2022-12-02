@@ -14,8 +14,6 @@ public interface WorkoutService {
 
     public List<WorkoutReadModel> readAll();
 
-//    public void toggleWorkout(int workoutId) throws WorkoutNotFoundException;
-
     public List<Exercise> findAllExercisesByWorkout_Id(int id) throws WorkoutNotFoundException;
 
     public Workout getWorkoutById(int id) throws WorkoutNotFoundException;

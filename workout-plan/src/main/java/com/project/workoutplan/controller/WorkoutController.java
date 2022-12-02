@@ -51,7 +51,7 @@ public class WorkoutController {
         service.createWorkout(current);
         model.addAttribute("workout", new WorkoutWriteModel());
         model.addAttribute("workouts", getWorkouts());
-        model.addAttribute("message", "Dodano trening");
+        model.addAttribute("message", "Workout added");
         return "workouts";
     }
 
