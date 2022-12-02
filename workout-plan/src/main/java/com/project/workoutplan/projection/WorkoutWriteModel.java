@@ -15,6 +15,12 @@ public class WorkoutWriteModel {
     @Valid
     private List<ExerciseWriteModel> exercises = new ArrayList<>();
 
+    public WorkoutWriteModel(Integer id, String name, List<ExerciseWriteModel> exercises) {
+        this.id = id;
+        this.name = name;
+        this.exercises = exercises;
+    }
+
     public WorkoutWriteModel() {
         exercises.add(new ExerciseWriteModel());
     }

@@ -30,7 +30,7 @@ public class ExerciseServiceImpl implements ExerciseService{
 
     @Override
     public Exercise getById(int id) throws ExerciseNotFoundException {
-        Optional<Exercise> exercise = createExerciseById(id);
+        Optional<Exercise> exercise = exerciseRepository.findById(id);
 
         if (!exercise.isPresent()) {
             throw new ExerciseNotFoundException("Exercise not found");
@@ -42,11 +42,6 @@ public class ExerciseServiceImpl implements ExerciseService{
     @Override
     public void deleteById(int id) throws ExerciseNotFoundException {
         exerciseRepository.deleteById(id);
-    }
-
-    private Optional<Exercise> createExerciseById(int id) {
-        Optional<Exercise> exercise =  exerciseRepository.findById(id);
-        return exercise;
     }
 
     @Override
@@ -63,12 +58,11 @@ public class ExerciseServiceImpl implements ExerciseService{
     public Exercise updateExerciseName(int id, Exercise exercise) throws ExerciseNotFoundException {
         Exercise currentExercise = getById(id);
 
-        if (Objects.nonNull(exercise.getName()) &&
-                !"".equalsIgnoreCase(exercise.getName())) {
-            currentExercise.setName(exercise.getName());
-        }
+        if (Objects.nonNull(exercise.getName()) && !"".equals(exercise.getName())) {
 
-        System.out.println("Updated successful");
+            currentExercise.setName(exercise.getName());
+            System.out.println("Updated successful");
+        }
 
         return exerciseRepository.save(currentExercise);
     }

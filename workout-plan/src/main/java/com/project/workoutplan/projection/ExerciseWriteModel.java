@@ -10,6 +10,7 @@ public class ExerciseWriteModel {
     private String name;
     private int reps;
 
+
     public String getName() {
         return name;
     }
